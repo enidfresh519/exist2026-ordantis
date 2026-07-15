@@ -5,6 +5,16 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/)
 [![Paper](https://img.shields.io/badge/paper-CLEF%202026-b31b1b.svg)](paper/paper_562.pdf)
+[![Ranked #1](https://img.shields.io/badge/EXIST%202026-Ranked%20%231-gold.svg)](results/RESULTS.md)
+
+> ## 🥇 Best-ranked system at EXIST 2026 Task 2
+> Ordantis obtained **three first places** on the official leaderboards, each ranked **#1 across all
+> instances, Spanish and English simultaneously**:
+> - **Task 2.1 — Binary sexism detection (soft):** 1st of 144
+> - **Task 2.2 — Source-intention classification (soft):** 1st of 117
+> - **Task 2.2 — Source-intention classification (hard):** 1st of 186
+>
+> Full leaderboard positions in [`results/RESULTS.md`](results/RESULTS.md).
 
 This repository contains the full pipeline behind the Ordantis runs for EXIST 2026 Task 2:
 binary sexism detection (2.1), source-intention classification (2.2) and multi-label sexism
