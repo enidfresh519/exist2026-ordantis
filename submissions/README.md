@@ -1,6 +1,7 @@
 # Submitted runs
 
-The 18 official Ordantis files submitted to EXIST 2026 Task 2 (PyEvALL format).
+The 18 **final** Ordantis run files submitted to EXIST 2026 Task 2 (PyEvALL format), covering the
+full official test set. Their official leaderboard positions are in [`../results/RESULTS.md`](../results/RESULTS.md).
 
 - Naming: `task2_<subtask>_<setting>_Ordantis_<run>` (subtask 1/2/3, setting `hard`/`soft`, run 1–3).
 - **Hard** files: one label per meme, e.g. `{"test_case": "EXIST2025", "id": "310001", "value": "YES"}`.

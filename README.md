@@ -22,16 +22,53 @@ distribution) targets** rather than majority labels (Learning with Disagreement)
 
 ---
 
-## Official results (all-instances)
+## About the paper
 
-| Subtask | Setting | Best run | Rank | Metric |
-|---|---|---|---|---|
-| 2.1 Binary | Soft | `Ordantis_1` (Gemini blend) | **1 / 144** | ICM-Soft 0.7206 |
-| 2.1 Binary | Hard | `Ordantis_2` (Longformer)   | 3 / 217 | ICM-Hard 0.4079, F1-YES 0.801 |
-| 2.2 Intention | Hard | `Ordantis_3` (model–Gemini blend) | **1 / 186** | ICM-Hard 0.3709, F1 0.616 |
-| 2.2 Intention | Soft | `Ordantis_1` (raw blend) | **1 / 117** | ICM-Soft 0.0114 |
-| 2.3 Categories | Soft | `Ordantis_1` (Longformer, no sampler) | 10 / 118 | ICM-Soft Norm 0.2516 |
-| 2.3 Categories | Hard | `Ordantis_1` | 132 / 187 | F1 0.379 |
+**"Gemini-Enriched Probabilistic Modeling for Multimodal Sexism Characterization in Memes"**
+(Sergio Ortiz Montesinos, Fernando Martínez Gómez — UPV / Ordantis; CLEF 2026 Working Notes) —
+[`paper/paper_562.pdf`](paper/paper_562.pdf).
+
+The paper describes the system, the design decisions and the official analysis. Its main points:
+
+- **LLM as a semantic mediator, not a classifier.** The central contribution is to use Gemini flash
+  3.1 to translate each meme's visual and pragmatic content into structured text (description,
+  sexism analysis, reasoning, intention/irony cues, category hints and zero-shot probabilities),
+  which supervised multilingual encoders then exploit. This is what lifted Task 2.1 validation AUC
+  from **0.741 (raw ViT) to 0.880**, the largest single gain in the pipeline (§6, Table 2).
+- **Learning with disagreement.** Rather than majority labels, models train on the empirical
+  distribution of the six annotators per meme, which matches the soft evaluation and yields
+  well-calibrated probabilities (§3). A mixed-effects analysis (§4) shows annotator demographics
+  (age, gender, ethnicity, country) are significantly associated with sexism perception, justifying
+  soft labels.
+- **Gemini in three roles** — enriched text, auxiliary numeric features, and a fixed probability
+  blend (`0.6·model + 0.4·Gemini` for Task 2.1). The blend was decisive: it produced the #1 soft run
+  in Task 2.1 and the #1 hard run in Task 2.2 (§5.2, §11).
+- **Task-specific heads** matching the label semantics: hierarchical for intention (2.2), conditional
+  multi-label for categories (2.3) (§9).
+- **Honest failure analysis.** Task 2.3 hard is diagnosed in depth (§14): the same probabilities rank
+  10/118 soft but 132/187 hard, isolating the problem to validation-overfit category thresholds and
+  unmodeled label co-occurrence (STEREOTYPING-DOMINANCE as a hub category), not the model.
+- **Calibration** (ECE/MCE/Brier), **modality ablation** (removing EEG+Ekman costs ~2–3 pts), and
+  **cost** (~74 min / ~$47 one-off Gemini precomputation on an RTX 4500 Ada) are all reported
+  (§13, §15). The exact offline Gemini prompt is reproduced in Appendix A → [`docs/gemini_prompt.md`](docs/gemini_prompt.md).
+
+---
+
+## Official results
+
+Official EXIST 2026 leaderboards (PyEvALL), all runs and languages in
+[`results/RESULTS.md`](results/RESULTS.md) — raw spreadsheets in [`results/`](results/).
+
+**Three first places — each #1 across ALL instances, Spanish and English simultaneously:**
+
+| Subtask · setting | Best run | ALL | ES | EN | Key metric (ALL) |
+|---|---|---|---|---|---|
+| **2.1 Binary — Soft** | `Ordantis_1` (Gemini blend) | **1 / 144** | **1 / 142** | **1 / 142** | ICM-Soft 0.7206 |
+| **2.2 Intention — Soft** | `Ordantis_1` (raw blend) | **1 / 117** | **1 / 115** | **1 / 115** | ICM-Soft 0.0114 |
+| **2.2 Intention — Hard** | `Ordantis_3` (model–Gemini blend) | **1 / 186** | **1 / 184** | **1 / 184** | ICM-Hard 0.3709, F1 0.616 |
+| 2.1 Binary — Hard | `Ordantis_2` (Longformer) | 3 / 217 | 2 / 215 | 4 / 215 | ICM-Hard 0.4079, F1-YES 0.801 |
+| 2.3 Categories — Soft | `Ordantis_1` (Longformer) | 10 / 118 | 10 / 116 | 14 / 116 | ICM-Soft-Norm 0.2516 |
+| 2.3 Categories — Hard | `Ordantis_1` | 132 / 187 | 134 / 185 | 133 / 185 | F1 0.379 |
 
 The Gemini-based semantic enrichment is the single largest design gain (Task 2.1 validation AUC
 **0.741 → 0.880**). Task 2.3 hard remained challenging: the underlying probabilistic model ranks
@@ -78,7 +115,8 @@ exist2026-ordantis/
 ├── requirements.txt        # Python dependencies
 ├── .env.example            # template for the Gemini API key (copy to .env)
 ├── paper/                  # CLEF 2026 working-notes paper (paper_562.pdf)
-├── submissions/            # the 18 official Ordantis run files (the deliverable)
+├── results/                # official EXIST 2026 leaderboards (xlsx) + RESULTS.md summary
+├── submissions/            # the 18 final Ordantis run files (the deliverable)
 ├── docs/
 │   ├── architecture.md     # GEMF architecture in detail
 │   ├── reproducibility.md  # step-by-step reproduction guide
